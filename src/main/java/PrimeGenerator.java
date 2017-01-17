@@ -8,20 +8,19 @@ public class PrimeGenerator {
   int numberOfPrimes;
 
   private int numberOfPrimesFound;
-  private static int ordmax;
-  private static int ord;
-  private static int square;
-  private static int[] mult;
+  private int ordinal;
+  private int square;
+  private int[] multiples;
 
   public PrimeGenerator(int numberOfPrimes) {
     this.numberOfPrimes = numberOfPrimes;
-    primes = new int[numberOfPrimes + 1];
-    candidate = 1;
-    numberOfPrimesFound = 1;
-    ordmax = 30;
-    mult = new int[ordmax + 1];
+    this.primes = new int[numberOfPrimes + 1];
+    this.candidate = 1;
+    this.numberOfPrimesFound = 1;
+    int ordmax = 30;
+    this.multiples = new int[ordmax + 1];
     primes[1] = 2;
-    ord = 2;
+    ordinal = 2;
     square = 9;
   }
 
@@ -36,9 +35,9 @@ public class PrimeGenerator {
     do {
       candidate += 2;
       if (candidate == square) {
-        ord++;
-        square = primes[ord] * primes[ord];
-        mult[ord - 1] = candidate;
+        ordinal++;
+        square = primes[ordinal] * primes[ordinal];
+        multiples[ordinal - 1] = candidate;
       }
     } while (!isCandidatePrime(candidate));
     savePrime(candidate);
@@ -51,10 +50,10 @@ public class PrimeGenerator {
 
   private boolean isCandidatePrime(int primeCandidate) {
     int n = 2;
-    while (n < ord) {
-      while (mult[n] < primeCandidate)
-        mult[n] += primes[n] + primes[n];
-      if (mult[n] == primeCandidate)
+    while (n < ordinal) {
+      while (multiples[n] < primeCandidate)
+        multiples[n] += primes[n] + primes[n];
+      if (multiples[n] == primeCandidate)
         return false;
       n++;
     }
